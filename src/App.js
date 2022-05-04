@@ -1,11 +1,11 @@
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
-import { Pagination } from "./components/Pagination";
+import { MainPage } from "./components/MainPage";
 const App = () => {
   return (
     <>
       <Header />
-      <Pagination />
+      <MainPage />
       <Footer />
     </>
   );
