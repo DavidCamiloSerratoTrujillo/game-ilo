@@ -102,27 +102,25 @@ justify-content: center;
  margin: 40px;
  }
  .paginationBttns{
-
-  width: 80%;
+  width: 60%;
   height: 40px;
   list-style: none;
   display: flex;
   justify-content: center;
+  margin-top: 20px;
  }
  .paginationBttns a{
-  padding: 10px;
-  margin: 8px;
+  padding: 8px;
+  margin: 3px;
   border-radius:5px;
   border: 1px solid #ff452b;
   color: #ff452b;
   cursor: pointer;
  }
+
  .paginationBttns a:hover{
    background-color: #ff452b;
-   color: white
- }
- .paginationBttns :hover{
-  color: white
+   color: black;
 }
  .paginationActive a {
   background-color: #ff452b;
