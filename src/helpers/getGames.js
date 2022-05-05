@@ -1,5 +1,5 @@
 
-export const getGames = async(search) => {
+export const getGames = async(orderby='release-date') => {
    
     const options = {
         method: 'GET',
@@ -8,7 +8,7 @@ export const getGames = async(search) => {
             'X-RapidAPI-Key': '4ae26ebe3fmsh7206b47dd59abecp18a83cjsn5c86e12183de'
         }
     };
-    const url = `https://free-to-play-games-database.p.rapidapi.com/api/games`;
+    const url = `https://free-to-play-games-database.p.rapidapi.com/api/games?sort-by=${orderby}`;
     const resp = await  fetch(url, options)
     const data = await resp.json();
     const games = data.map(gm =>{

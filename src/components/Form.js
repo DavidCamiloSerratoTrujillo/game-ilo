@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-export const Form = ({setSearch}) => {
+export const Form = ({setSearch,setOrderby,setPlataform,setCategory}) => {
     const [inputValue, setInputValue] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -10,7 +10,15 @@ export const Form = ({setSearch}) => {
     setInputValue(target.value);
     setSearch(inputValue);
 }
-
+const handleChangeSelect = ({target}) =>{
+setOrderby(target.value);
+}
+const handleChangeSelectP = ({target}) =>{
+  setPlataform(target.value);
+  }
+  const handleChangeSelectC = ({target}) =>{
+    setCategory(target.value);
+    }
   return (
     <form id = "inicio" onSubmit={handleSubmit} className="input-group container pb-3">
         <input
@@ -31,25 +39,26 @@ export const Form = ({setSearch}) => {
           
           <div className="row">
             <div className="col-sm-4 col-md-auto ">
-              <select  name="category" className="form-select" >
-                <option defaultValue="none" value = "none">Category</option>
+              <select  name="category" className="form-select" onChange={handleChangeSelectC} >
+                <option defaultValue="" value = "">Category</option>
                 <option value = "shooter">SHOOTER</option>
                 <option value = "morpg">MORPG</option>
                 <option value = "moba">MOBA</option>
               </select>
             </div>
             <div className="col-sm-4  col-md-auto ">
-            <select  name="plataform" className="form-select" >
-                <option defaultValue="none" value ="none">Plataform</option>
+            <select  name="plataform" className="form-select" onChange={handleChangeSelectP}>
+                <option defaultValue="" value ="">Plataform</option>
                 <option value = "pc">PC</option>
-                <option value = "xbox">XBOX</option>
-                <option value = "nintendo">NINTENDO</option>
+                <option value = "browser">Browser</option>
               </select>
             </div>
             <div className="col-sm-4  col-md-auto ">
-            <select name ="orderby" className="form-select" >
-                <option defaultValue="none" value ="none">OrderBy</option>
-                <option value="AZ">A-Z</option>
+            <select name ="orderby" className="form-select" onChange={handleChangeSelect}>
+                <option defaultValue="" value ="">OrderBy</option>
+                <option value="alphabetical">A-Z</option>
+                <option value="release-date">release-date</option>
+                
               </select>
             </div>
             
