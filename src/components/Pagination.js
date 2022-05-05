@@ -15,6 +15,8 @@ export const Pagination = ({ pageNumber, setPageNumber, n }) => {
       nextLinkClassName={"nextBttn"}
       disabledClassName={"paginationDisabled"}
       activeClassName={"paginationActive"}
+      pageRangeDisplayed = {1}
+      marginPagesDisplayed = {1}
     />
   );
 };
