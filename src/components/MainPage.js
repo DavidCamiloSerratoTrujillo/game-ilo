@@ -1,76 +1,37 @@
 import React,{useState} from "react";
 import { Pagination } from "./Pagination";
 import { Card } from "./Card";
-import { useForm } from "../hooks/useForm";
+import { Form } from "./Form";
 import { useFetchGames } from "../hooks/useFetchGames";
 import Loader from 'react-loaders'
-
+import {ViewCard} from "./ViewCard"
 export const MainPage = () => {
-  const [formValues,handleInputChange,reset] = useForm({
-    search: '',
-    plataform: '',
-    category: '',
-    orderby:''
-  })
-  const {search,plataform,category,orderby} = formValues;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    reset();
-  };
-  const {data:games,loading} = useFetchGames(search,plataform,category,orderby);
+  const [mostrar,setMostrar]= useState(false);
+  const [search,setSearch] = useState("");
+  const [info,setInfo]=useState({});
+    // const [plataform,setPlataform] = useState("");
+    // const [category,setCategory] = useState("");
+    // const [orderby,setOrderby] = useState("");
+  const {data:games,loading} = useFetchGames(search);
   const [pageNumber,setPageNumber] = useState(0);
   const objPerPage = 10;
   const pagesVisited = pageNumber*objPerPage;
-  const displayObj = games.slice(pagesVisited,pagesVisited +objPerPage)
- const countObj = Math.ceil(games.length/objPerPage);
+
+  const objFilter = games.filter((elemento=> {
+    return JSON.stringify(elemento).toLowerCase().includes(search.toLowerCase())
+  }))
+  const displayObj = objFilter.slice(pagesVisited,pagesVisited +objPerPage)
+
+  const countObj = Math.ceil(objFilter.length/objPerPage);
+  
+
+ 
   return (
     <>
-      <form id = "inicio" onSubmit={handleSubmit} className="input-group container pb-3">
-        <input
-          type="text"
-          name="search"
-          autoComplete="off"
-          value={search}
-          className="form-control rounded"
-          placeholder="Search"
-          aria-label="Search"
-          aria-describedby="search-addon"
-          onChange = {handleInputChange}
-        />
-        <button type="submit" className="btn btn-outline-primary  rounded">
-          <img src="https://lh3.googleusercontent.com/JnwVneQZOi47RNPys9ukLOyYQl9pJAoJvOeifWfVQc3on5hmjbh0bJjUH5-Y2yUKmsnMCtV15sdGfPtRnL52s2KTSiuKIcAGA9_YL-ptq7kT-RZkfp2L1CkRr4FzmPx4t5fuusR1pSCT8pE4-vg9Outt558FQuuZzfDN0jW_Gc-2iP5uGldVtSq-7uvwQtzreFr_34cXmUSFb3kt3HRy8tiZjdCAzCgdgBEHF8hll0pQT5sDAuQBFSM-UPdvyaTRoVxpJ2JZr0QX7HK-KL61Cq1oehvb9Lt7MMAmTwq1r7OpimQCB5PNDnQYk7UZ4bWjh11hXh3d-Nmioy7o8MvSzN4BiWB51xTpjZapQKdKmdxKnYot6yXGCRZ1v572HNCTTtjPMhO7rX-Nfz8UQWUMMtkobPpi-8wgVYebefRd3Cg1piv06sJahnx0Ugzs350yPy9Hf6CgQBIlaVKdtH0v4wJpK_BLitTsIYqTbjShMPp6T4At1H0zon9zw3H9DOipOYdguZUr3ap4h-i3XEZscloO6z0Pz39vrSANk98yyDMXS_zmUC_YfrW2eoUs5GTxbF-ao_6VtAuq_eYjPZtD16Nthxun2uq6IxX9UNUHwaNJnxmUk_n_zvMqHfzPTzRvjdt0weh_uWJ1rj4_6J_Poai95A7Ipu_uG9ScvLOWqcer83pjYCO85svkScc-DQ_9aWcVbGDyIZLpT5-LeXymTpfZ_FpnYOWzgBfEL3b69W1ZJrLQGHOlEBeA34o=s16-no" alt="Search"></img>
-        </button>
-        <div className="container p-0">
-          
-          <div className="row">
-            <div className="col-sm-4 col-md-auto ">
-              <select  name="category" className="form-select" onChange={handleInputChange}>
-                <option defaultValue="none" value = "none">Category</option>
-                <option value = "shooter">SHOOTER</option>
-                <option value = "morpg">MORPG</option>
-                <option value = "moba">MOBA</option>
-              </select>
-            </div>
-            <div className="col-sm-4  col-md-auto ">
-            <select  name="plataform" className="form-select" onChange={handleInputChange}>
-                <option defaultValue="none" value ="none">Plataform</option>
-                <option value = "pc">PC</option>
-                <option value = "xbox">XBOX</option>
-                <option value = "nintendo">NINTENDO</option>
-              </select>
-            </div>
-            <div className="col-sm-4  col-md-auto ">
-            <select name ="orderby" className="form-select" onChange={handleInputChange}>
-                <option defaultValue="none" value ="none">OrderBy</option>
-                <option value="AZ">A-Z</option>
-              </select>
-            </div>
-            
-          </div>
-          
-        </div>
-      </form>
+    {mostrar===false?
+    <>
+     <Form setSearch={setSearch}/>
       {loading===false?
       <>
       <div className="container input-group pb-3">
@@ -79,11 +40,15 @@ export const MainPage = () => {
       <div className="container">
         
         <div className="row col-md-auto">
-        
-          {displayObj.map( (g) =>(
+      
+          {
+          displayObj.map( (g) =>(
             <Card key={g.id}
-            {...g}/>
-          ))}
+            {...g}
+            mostrar = {mostrar}setMostrar={setMostrar} setInfo = {setInfo}
+            />
+          ))
+          }
           <div className="col-sm-auto col-md-auto ">
           </div>
         </div>
@@ -91,7 +56,10 @@ export const MainPage = () => {
       </>:
       <Loader type="pacman" />
       }
-      
+    
+    </>:
+    <ViewCard info = {info} mostrar = {mostrar}setMostrar={setMostrar}/>
+    }
     </>
   );
 };
