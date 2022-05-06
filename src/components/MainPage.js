@@ -6,6 +6,8 @@ import { useFetchGames } from "../hooks/useFetchGames";
 import Loader from "react-loaders";
 import { ViewCard } from "./ViewCard";
 export const MainPage = () => {
+  
+  const [cant,setCant] = useState(10);
   const [mostrar, setMostrar] = useState(false);
   const [search, setSearch] = useState("");
   const [info, setInfo] = useState({});
@@ -14,7 +16,7 @@ export const MainPage = () => {
   const [orderby, setOrderby] = useState("");
   const { data: games, loading } = useFetchGames(orderby);
   const [pageNumber, setPageNumber] = useState(0);
-  const objPerPage = 10;
+  const objPerPage = cant;
   const pagesVisited = pageNumber * objPerPage;
 
   const objPlatform = games.filter((elemento) => {
@@ -46,6 +48,7 @@ export const MainPage = () => {
             setOrderby={setOrderby}
             setPlataform={setPlataform}
             setCategory={setCategory}
+            setCant={setCant}
           />
           {loading === false ? (
             <>

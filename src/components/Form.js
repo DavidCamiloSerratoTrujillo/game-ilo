@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-export const Form = ({setSearch,setOrderby,setPlataform,setCategory}) => {
+export const Form = ({setSearch,setOrderby,setPlataform,setCategory,setCant}) => {
     const [inputValue, setInputValue] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,6 +19,9 @@ const handleChangeSelectP = ({target}) =>{
   const handleChangeSelectC = ({target}) =>{
     setCategory(target.value);
     }
+    const handleChangeSelectCant = ({target}) =>{
+      setCant(target.value);
+      }
   return (
     <form id = "inicio" onSubmit={handleSubmit} className="input-group container pb-3">
         <input
@@ -61,7 +64,14 @@ const handleChangeSelectP = ({target}) =>{
                 
               </select>
             </div>
-            
+            <div className="col-sm-4  col-md-auto ">
+            <select name ="orderby" className="form-select" onChange={handleChangeSelectCant}>
+                <option defaultValue={10}value ={10}>Cantidad</option>
+                <option value={10}>10</option>
+                <option value={50}>50</option>
+                <option value={100}>100</option>
+              </select>
+            </div>
           </div>
           
         </div>

@@ -126,7 +126,18 @@ justify-content: center;
   background-color: #ff452b;
   color: white
  }
-  
+ .bor{
+   border: 1px solid #ff452b;
+   width:50%;
+   height:auto;
+ }
+  .card{
+    border:1px solid #ff452b;
+    border-radius: 4px;
+  }
+  .img-fluid{
+    border-radius: 4px;
+  }
  
   
 
