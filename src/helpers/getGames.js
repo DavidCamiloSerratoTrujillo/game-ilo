@@ -1,5 +1,5 @@
-
-export const getGames = async(orderby='release-date') => {
+import PropTypes  from 'prop-types';
+export const getGames = async(orderby='') => {
    
     const options = {
         method: 'GET',
@@ -23,4 +23,7 @@ export const getGames = async(orderby='release-date') => {
     });
     return (games);
 
+}
+getGames.popTypes = {
+    orderby:PropTypes.string.isRequired
 }

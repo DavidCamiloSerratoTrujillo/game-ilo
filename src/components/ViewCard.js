@@ -1,9 +1,9 @@
 import React from "react";
-
+import PropTypes  from "prop-types";
 export const ViewCard = ({ info, mostrar, setMostrar }) => {
   const handleClick = () => {
     setMostrar(!mostrar);
-  };
+  };//Funcion que sirve para mostrar la lista de cards o una en especifico
   return (
     <div className="input-group container pb-3 bor">
       <div className="container input-group ">
@@ -42,3 +42,8 @@ export const ViewCard = ({ info, mostrar, setMostrar }) => {
     </div>
   );
 };
+ViewCard.popTypes = {
+  info:PropTypes.object.isRequired,
+  mostrar:PropTypes.bool.isRequired,
+  setMostrar:PropTypes.func.isRequired
+}

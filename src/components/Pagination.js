@@ -1,6 +1,7 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
-export const Pagination = ({ pageNumber, setPageNumber, n }) => {
+import PropTypes  from "prop-types";
+export const Pagination = ({ setPageNumber, n }) => {
   const changePage = ({ selected }) => {
     setPageNumber(selected);
   };
@@ -17,6 +18,10 @@ export const Pagination = ({ pageNumber, setPageNumber, n }) => {
       activeClassName={"paginationActive"}
       pageRangeDisplayed = {1}
       marginPagesDisplayed = {1}
-    />
+    />//Componente de react paginate que permite hacer un paginado con un solo componente y enviarle todo por props
   );
 };
+Pagination.popTypes = {
+  serPageNumber: PropTypes.func.isRequired,
+  n : PropTypes.number.isRequired,
+}

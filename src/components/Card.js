@@ -1,5 +1,5 @@
 import React from "react";
-
+import PropTypes  from 'prop-types';
 export const Card = ({
   setInfo,
   mostrar,
@@ -21,7 +21,7 @@ export const Card = ({
       platform: platform,
       category: category,
     });
-  };
+  };//funcion en la que muestro o no en una pantalla la informacion de un card o la lista de todos los cards, asignando la informacion que quiero mostrar dado sea el caso
   return (
     <div className="card p-0">
       <img
@@ -40,3 +40,14 @@ export const Card = ({
     </div>
   );
 };
+Card.propTypes = {//Exige que se envie el setcategories
+  setInfo : PropTypes.func.isRequired,
+  setMostrar : PropTypes.func.isRequired,
+  mostrar:PropTypes.bool.isRequired,
+  id:PropTypes.number.isRequired,
+  title:PropTypes.string.isRequired,
+  url:PropTypes.string.isRequired,
+  desc:PropTypes.string.isRequired,
+  category:PropTypes.string.isRequired,
+  platform:PropTypes.string.isRequired,
+}
